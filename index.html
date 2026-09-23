@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FoLD: Force-Informed Learning for Dexterous Articulated Object Manipulation.">
+  <meta property="og:title" content="FoLD — Force-Informed Learning">
+  <meta property="og:description" content="Learning dexterous articulated-object manipulation through explicit force guidance.">
+  <meta property="og:image" content="assets/images/fold-teaser.png">
+  <title>FoLD — Force-Informed Learning</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314213d'/%3E%3Cpath d='M17 47V17h23v7H25v6h13v7H25v10z' fill='%23ff8a5b'/%3E%3Ccircle cx='45' cy='43' r='5' fill='%23fff7ef'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="FoLD home"><span>Fo</span>LD</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <div class="nav-links" id="nav-links">
+        <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#robots">Real Robot</a>
+        <a href="#citation">Citation</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero shell" id="top">
+      <p class="eyebrow reveal">Force-informed robot learning</p>
+      <h1 class="reveal">FoLD: Force-Informed Learning for Dexterous Articulated Object Manipulation</h1>
+      <div class="authors reveal" aria-label="Authors">
+        <span>Haowei Shen</span><span>Tingai Li</span><span>Yumeng Liu<sup>*</sup></span><span>Wenyuan Guang</span><span>Xuanze Yang</span><span>Qing Fang</span><span>Kai Xu</span><span>Ligang Liu</span><span>Ruizhen Hu</span>
+      </div>
+      <div class="hero-actions reveal">
+        <span class="button disabled" aria-disabled="true">arXiv · Coming soon</span>
+        <a class="button ghost" href="#overview">Watch overview</a>
+      </div>
+      <figure class="teaser reveal">
+        <img src="assets/images/fold-teaser.png" alt="FoLD overview showing simulated and real dexterous manipulation" fetchpriority="high">
+      </figure>
+      <p class="lead reveal">Force-Informed Learning for Dexterous Articulated Object Manipulation turns object-motion deviations into compensatory force guidance, enabling diverse robotic hands to refine retargeted motions into physically effective interactions.</p>
+    </section>
+
+    <section class="section shell" id="overview">
+      <div class="section-heading split-heading reveal">
+        <div><p class="kicker">Overview</p><h2>FoLD in three minutes</h2></div>
+        <p>From human demonstration and kinematic retargeting to compensatory force guidance, simulation learning, and real-robot deployment.</p>
+      </div>
+      <div class="video-frame feature-video reveal">
+        <video controls playsinline preload="metadata" poster="assets/images/fold-teaser.png">
+          <source src="assets/videos/fold-overview.mp4" type="video/mp4">
+        </video>
+      </div>
+    </section>
+
+    <section class="section soft" id="abstract">
+      <div class="shell narrow reveal">
+        <p class="kicker">Abstract</p>
+        <h2>Force guidance bridges the embodiment gap.</h2>
+        <p class="abstract-text">Transferring human demonstrations to dexterous robots remains challenging because differences in hand morphology and contact dynamics often cause retargeted motions to fail at producing the intended object behavior. We present FoLD, a framework for learning dexterous manipulation of articulated objects through explicit force guidance. FoLD computes compensatory force fields from human demonstrations together with the robot’s current interaction state, yielding a force prior that promotes the demonstrated object motion. This force prior informs a residual policy that adapts retargeted hand motions to the contact requirements of the task. We evaluate FoLD on a public benchmark for articulated object manipulation, where it consistently outperforms state-of-the-art baselines across tasks and embodiments. We further validate FoLD on real dexterous robot platforms, demonstrating successful transfer of human manipulation skills to robot execution.</p>
+      </div>
+    </section>
+
+    <section class="section shell" id="method">
+      <div class="section-heading split-heading reveal">
+        <div><p class="kicker">Method</p><h2>Correct the interaction, not just the pose.</h2></div>
+        <p>FoLD measures object-motion deviation, estimates a compensatory force field, and uses it as a prior for learning corrective residual actions.</p>
+      </div>
+      <figure class="pipeline reveal">
+        <img src="assets/images/fold-pipeline.png" alt="FoLD pipeline: initial imitation, compensatory force field, and force-informed policy learning" loading="lazy">
+        <figcaption>FoLD uses object-motion deviations to estimate compensatory force fields that inform corrective hand actions, bringing object motion closer to the demonstration.</figcaption>
+      </figure>
+      <div class="method-grid">
+        <article class="method-card reveal">
+          <div class="number">01</div><h3>Initial imitation</h3>
+          <p>Retarget the human motion to a robot hand while the object is driven along the <strong>ground-truth physical trajectory (GT object trajectory)</strong>. Even with this GT motion, the resulting hand–object contact can remain imprecise.</p>
+          <video controls muted loop playsinline preload="metadata" poster="assets/images/method-initial-imitation.jpg"><source src="assets/videos/method-initial-imitation.mp4" type="video/mp4"></video>
+        </article>
+        <article class="method-card reveal">
+          <div class="number">02</div><h3>Compensatory force field</h3>
+          <p>Convert the discrepancy between desired and realized object motion into a smooth spatial force prior that highlights where corrective interaction is needed.</p>
+          <video controls muted loop playsinline preload="metadata" poster="assets/images/method-force-field.jpg"><source src="assets/videos/method-force-field.mp4" type="video/mp4"></video>
+        </article>
+        <article class="method-card reveal">
+          <div class="number">03</div><h3>Force-informed refinement</h3>
+          <p>Learn residual hand actions under force guidance so that robot contacts produce the intended articulated motion instead of merely matching hand pose.</p>
+          <video controls muted loop playsinline preload="metadata" poster="assets/images/method-residual-policy.jpg"><source src="assets/videos/method-residual-policy.mp4" type="video/mp4"></video>
+        </article>
+      </div>
+    </section>
+
+    <section class="section ink" id="results">
+      <div class="shell">
+        <div class="section-heading split-heading reveal">
+          <div><p class="kicker">Qualitative results</p><h2>One framework, multiple hands and methods.</h2></div>
+          <p>We compare human demonstrations, FoLD, and the corresponding imitation baseline on articulated-object tasks.</p>
+        </div>
+
+        <div class="result-group reveal">
+          <div class="result-group-title"><span>FoLD vs. DexMachina</span><small>Four examples across Inspire and Schunk hands</small></div>
+          <div class="media-grid two">
+            <article class="media-card"><video class="autoplay-video" muted loop playsinline preload="metadata"><source src="assets/videos/dex-notebook.mp4" type="video/mp4"></video><h3>Notebook</h3></article>
+            <article class="media-card"><video class="autoplay-video" muted loop playsinline preload="metadata"><source src="assets/videos/dex-box.mp4" type="video/mp4"></video><h3>Box</h3></article>
+            <article class="media-card"><video class="autoplay-video" muted loop playsinline preload="metadata"><source src="assets/videos/dex-ketchup.mp4" type="video/mp4"></video><h3>Ketchup</h3></article>
+            <article class="media-card"><video class="autoplay-video" muted loop playsinline preload="metadata"><source src="assets/videos/dex-waffleiron.mp4" type="video/mp4"></video><h3>Waffle Iron</h3></article>
+          </div>
+        </div>
+
+        <div class="result-group reveal">
+          <div class="result-group-title"><span>FoLD as a CHORD enhancement</span><small>Human · CHORD + FoLD · CHORD</small></div>
+          <div class="media-grid two">
+            <article class="media-card"><video class="autoplay-video" muted loop playsinline preload="metadata"><source src="assets/videos/chord-box.mp4" type="video/mp4"></video><h3>Box</h3></article>
+            <article class="media-card"><video class="autoplay-video" muted loop playsinline preload="metadata"><source src="assets/videos/chord-notebook.mp4" type="video/mp4"></video><h3>Notebook</h3></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" id="quantitative">
+      <div class="section-heading split-heading reveal">
+        <div><p class="kicker">Quantitative results</p><h2>Better object motion across embodiments.</h2></div>
+        <p>Across four robotic hands, FoLD raises overall success rate from <strong>0.606</strong> to <strong>0.772</strong> while reducing position, rotation, and joint errors.</p>
+      </div>
+
+      <article class="table-card reveal">
+        <div class="table-title"><h3>Comparison with DexMachina</h3><p>Best result for each hand is bold.</p></div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Hand</th><th>Method</th><th>SR ↑</th><th>Contact mean ↑</th><th>Pos. (cm) ↓</th><th>Rot. (°) ↓</th><th>Joint (°) ↓</th></tr></thead>
+            <tbody>
+              <tr><td rowspan="2">Inspire</td><td>DexMachina</td><td>0.511</td><td>0.154</td><td>52.27</td><td>42.65</td><td>34.26</td></tr>
+              <tr class="ours"><td>FoLD</td><td><strong>0.700</strong></td><td><strong>0.248</strong></td><td><strong>18.19</strong></td><td><strong>23.28</strong></td><td><strong>20.20</strong></td></tr>
+              <tr><td rowspan="2">Allegro</td><td>DexMachina</td><td>0.596</td><td>0.043</td><td><strong>20.07</strong></td><td>49.38</td><td>22.51</td></tr>
+              <tr class="ours"><td>FoLD</td><td><strong>0.750</strong></td><td><strong>0.061</strong></td><td>23.62</td><td><strong>40.51</strong></td><td><strong>12.18</strong></td></tr>
+              <tr><td rowspan="2">XHand</td><td>DexMachina</td><td><strong>0.724</strong></td><td>0.113</td><td>39.55</td><td>48.34</td><td>24.88</td></tr>
+              <tr class="ours"><td>FoLD</td><td>0.697</td><td><strong>0.116</strong></td><td><strong>31.86</strong></td><td><strong>43.76</strong></td><td><strong>20.24</strong></td></tr>
+              <tr><td rowspan="2">Schunk</td><td>DexMachina</td><td>0.588</td><td>0.034</td><td>34.47</td><td>45.66</td><td>44.49</td></tr>
+              <tr class="ours"><td>FoLD</td><td><strong>0.968</strong></td><td><strong>0.101</strong></td><td><strong>0.91</strong></td><td><strong>6.52</strong></td><td><strong>5.37</strong></td></tr>
+              <tr class="overall"><td rowspan="2">Overall</td><td>DexMachina</td><td>0.606</td><td>0.088</td><td>36.67</td><td>46.54</td><td>31.06</td></tr>
+              <tr class="ours overall"><td>FoLD</td><td><strong>0.772</strong></td><td><strong>0.133</strong></td><td><strong>19.30</strong></td><td><strong>29.33</strong></td><td><strong>14.83</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="table-card reveal">
+        <div class="table-title"><h3>FoLD added to CHORD</h3><p>Sharpa-Wave hand; mean ± sample standard deviation.</p></div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Method</th><th>SR ↑</th><th>CWS mean ↑</th><th>Pos. (cm) ↓</th><th>Rot. (°) ↓</th><th>Joint (°) ↓</th></tr></thead>
+            <tbody>
+              <tr><td>CHORD</td><td>0.392 ± 0.315</td><td><strong>0.351 ± 0.242</strong></td><td>32.90 ± 29.47</td><td>43.58 ± 38.03</td><td><strong>21.92 ± 23.45</strong></td></tr>
+              <tr class="ours"><td>CHORD + FoLD</td><td><strong>0.397 ± 0.314</strong></td><td>0.344 ± 0.225</td><td><strong>20.19 ± 17.92</strong></td><td><strong>33.60 ± 30.40</strong></td><td>22.17 ± 24.00</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Adding FoLD substantially reduces object position and rotation errors while maintaining a similar success rate and contact consistency.</p>
+      </article>
+    </section>
+
+    <section class="section soft" id="robots">
+      <div class="shell">
+        <div class="section-heading split-heading reveal">
+          <div><p class="kicker">Real-robot deployment</p><h2>From simulation to physical interaction.</h2></div>
+          <p>FoLD transfers a range of articulated manipulation skills to a bimanual dexterous robot platform.</p>
+        </div>
+        <div class="media-grid three reveal">
+          <article class="media-card light"><video class="autoplay-video" muted loop playsinline preload="metadata"><source src="assets/videos/robot-laptop.mp4" type="video/mp4"></video><h3>Laptop</h3></article>
+          <article class="media-card light"><video class="autoplay-video" muted loop playsinline preload="metadata"><source src="assets/videos/robot-earphone.mp4" type="video/mp4"></video><h3>Headphones</h3></article>
+          <article class="media-card light"><video class="autoplay-video" muted loop playsinline preload="metadata"><source src="assets/videos/robot-scissors.mp4" type="video/mp4"></video><h3>Scissors</h3></article>
+        </div>
+        <details class="failure-panel reveal">
+          <summary><span>Failure cases</span><small>View two representative physical failures</small></summary>
+          <video controls playsinline preload="metadata"><source src="assets/videos/robot-failures.mp4" type="video/mp4"></video>
+        </details>
+      </div>
+    </section>
+
+    <section class="section shell citation" id="citation">
+      <div class="citation-card reveal">
+        <div><p class="kicker">Citation</p><h2>Paper and code are coming soon.</h2></div>
+        <p>The arXiv manuscript, BibTeX entry, and source code will be added here when the public release is ready.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner"><strong>FoLD</strong><span>Force-Informed Learning for Dexterous Articulated Object Manipulation</span><a href="#top">Back to top ↑</a></div>
+  </footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
