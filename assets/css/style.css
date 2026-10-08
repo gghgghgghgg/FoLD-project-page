@@ -5,3 +5,4 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}
 .method-grid{align-items:stretch}.method-card{display:flex;flex-direction:column;height:100%}.method-card h3{min-height:2.75em}.method-card p{flex:1;min-height:0}.method-card video{margin-top:auto;aspect-ratio:16/9;object-fit:contain;background:#fff}
 .authors sup,.affiliations sup{color:var(--accent)}.affiliations{max-width:920px;margin:16px auto 22px;display:flex;justify-content:center;flex-wrap:wrap;gap:2px 20px;color:var(--muted);font-size:14px;line-height:1.55}.affiliations span{white-space:normal}
+.deployment-subheading{font-family:"Source Serif 4",Georgia,serif;font-size:28px;line-height:1.2;margin:42px 0 18px}
